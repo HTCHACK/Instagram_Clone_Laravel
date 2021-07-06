@@ -39,8 +39,8 @@
                         @endif
 
                         {{ __('You are logged in!') }}
-                        <p style="float:right" href="" class="btn btn-info">Following 122 </p>
-                        <p style="float:right;margin-right:0.2rem" href="" class="btn btn-success">Followers 125 </p>
+                        <p style="float:right" href="" class="btn btn-info">Following {{ Auth::user()->following->count() }} </p>
+                        <p style="float:right;margin-right:0.2rem" href="" class="btn btn-success">Followers {{ Auth::user()->followers->count() }} </p>
                         <p style="float:right;margin-right:0.2rem" class="btn btn-info">Post
                             {{ Auth::user()->posts->count() }}</p>
                     </div>
@@ -60,7 +60,7 @@
                                     <p class="card-text">Created at : {{ $post->created_at }} <i
                                             class="fa fa-calendar"></i>
                                     </p>
-                                    <span class="btn btn-danger">{{$post->likes_count}} likes</span><span style="margin-left:0.2rem"
+                                    <span class="btn btn-danger">{{ $post->likes->count() }} likes</span><span style="margin-left:0.2rem"
                                         class="btn btn-info">{{$post->comments->count()}}
                                         Comments</span>
                                     <a style="float:right;margin-right:0.2rem"

@@ -8,4 +8,6 @@ class LikeDislike extends Model
 {
     protected $table = 'like_dislikes';
     protected $guarded = [''];
+
+    
 }

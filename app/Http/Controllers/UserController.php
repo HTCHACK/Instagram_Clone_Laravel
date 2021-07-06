@@ -54,58 +54,31 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $followUser = User::find($id);
-        $followCount = Follow::where(['user_id' => $followUser->id])->count();
-        $unfollowCount = Unfollow::where(['user_id' => $followUser->id])->count();
-
-        return view('user.show',[
-            'user' => User::findorFail($id),
-            'followCount'=>$followCount,
-            'unfollowCount'=>$unfollowCount
+        return view('user.show', [
+            'user' => User::findorFail($id)
         ]);
     }
 
     public function follow($id)
     {
         $user = Auth::user()->id;
-        $follow_user = Follow::where([
-            'user_id' => $user,
-        ])->first();
+        $follow_user = Follow::where(['auth_user_id' => $user,'user_id' => $id])->first();
 
-        if(empty($follow_user->user_id))
-        {
-            $user_id = Auth::user()->id;
-            $like = new Follow;
-            $like->user_id = $user_id;
-            $like->save();
+        if (empty($follow_user->auth_user_id)) {
+            $auth_user_id = Auth::user()->id;
+            $user_id = $id;
+            $follow = new Follow;
+            $follow->auth_user_id = $auth_user_id;
+            $follow->user_id = $user_id;
+            $follow->save();
 
-            return redirect()->back();
-        }
-        else{
-            return redirect()->back();
+            return redirect()->back()->with('followers','You have successfully follow this user');
+        } else {
+            return redirect()->back()->with('follow','You have already follow this user, you can not follow twice');
         }
     }
 
-    public function unfollow($id)
-    {
-        $user = Auth::user()->id;
-        $unfollow_user = Unfollow::where([
-            'user_id' => $user,
-        ])->first();
 
-        if(empty($unfollow_user->user_id))
-        {
-            $user_id = Auth::user()->id;
-            $like = new Unfollow;
-            $like->user_id = $user_id;
-            $like->save();
-
-            return redirect()->back();
-        }
-        else{
-            return redirect()->back();
-        }
-    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -114,7 +87,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('user.edit',['user' => Auth::user()]);
+        return view('user.edit', ['user' => Auth::user()]);
     }
 
     /**
@@ -128,16 +101,14 @@ class UserController extends Controller
     {
 
         $user->update([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'username'=>$request->username,
-            'password'=> Hash::make($request->password),
+            'name' => $request->name,
+            'email' => $request->email,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
             'photo' => $request->hasFile('photo') ? $request->file('photo')->storeAs('public/', Str::random(20) . '.' . $request->file('photo')->getClientOriginalExtension()) : $user->photo
         ]);
 
-        return redirect()->route('home')->with('updated','Your Profile Updated Successfully');
-
-
+        return redirect()->route('home')->with('updated', 'Your Profile Updated Successfully');
     }
 
     /**
@@ -150,5 +121,4 @@ class UserController extends Controller
     {
         //
     }
-
 }

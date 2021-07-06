@@ -45,10 +45,10 @@
                                         </a>
 
                                         <!----Likes Count-->
-                                        {{-- <a href="{{ route('likes.post', $post->id) }}" style="float:right">
+                                        <a href="{{ route('likes.post', $post->id) }}" >
                                             <span style="margin-left:0.2rem;margin-top:1rem"
-                                                class="btn btn-danger">{{ $likeCtr }} <i class="fa fa-heart"></i></span>
-                                        </a> --}}
+                                                class="btn btn-danger">{{ $post->likes->count() }} <i class="fa fa-heart"></i></span>
+                                        </a>
                                         <!----Likes Count-->
 
                                         <a href="{{ route('posts.show', $post->id) }}">
@@ -79,14 +79,14 @@
                         @if ($user == Auth::user())
                             <li class="list-group-item"><img width="50px" height="50px" style="border-radius:50%"
                                     src="{{ asset(str_replace('public', 'storage', $user->photo)) }}" alt="">
-                                {{ $user->name }}<button style="margin-left:0.2rem"
-                                    class="btn btn-warning">Follow</button><a href="{{ route('home') }}"
+                                {{ $user->name }}<a href="{{route('home')}}" style="margin-left:0.2rem"
+                                    class="btn btn-warning">Follow</a><a href="{{ route('home') }}"
                                     style="margin-left:0.2rem" class="btn btn-info">View</a></li>
                         @else
                             <li class="list-group-item"><img width="50px" height="50px" style="border-radius:50%"
                                     src="{{ asset(str_replace('public', 'storage', $user->photo)) }}" alt="">
-                                {{ $user->name }}<button style="margin-left:0.2rem"
-                                    class="btn btn-warning">Follow</button><a href="{{ route('users.show', $user->id) }}"
+                                {{ $user->name }}<a href="{{route('users.show',$user->id)}}" style="margin-left:0.2rem"
+                                    class="btn btn-warning">Follow</a><a href="{{ route('users.show', $user->id) }}"
                                     style="margin-left:0.2rem" class="btn btn-info">View</a></li>
                         @endif
                     @endforeach
@@ -100,36 +100,6 @@
 @endsection
 @section('js')
 
-    {{-- <script>
-        $(document).on('click', '#saveLikeDislike', function() {
-            var _post = $(this).data('post');
-            var _type = $(this).data('type');
-            var vm = $(this);
-            // Run Ajax
-            $.ajax({
-                url: "{{ url('save-likedislike') }}",
-                type: "post",
-                dataType: 'json',
-                data: {
-                    post: _post,
-                    type: _type,
-                    _token: "{{ csrf_token() }}"
-                },
-                beforeSend: function() {
-                    vm.addClass('disabled');
-                },
-                success: function(res) {
-                    if (res.bool == true) {
-                        vm.removeClass('disabled').addClass('active');
-                        vm.removeAttr('id');
-                        var _prevCount = $("." + _type + "-count").text();
-                        _prevCount++;
-                        $("." + _type + "-count").text(_prevCount);
-                    }
-                }
-            });
-        });
-    </script> --}}
-
+   
 
 @endsection

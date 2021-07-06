@@ -3,21 +3,36 @@
 @section('content')
 
     <div class="container">
+        @if (session('follow'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('follow') }}
+            </div>
+        @elseif(session('followers'))
+            <div class="alert alert-success" role="alert">
+                {{ session('followers') }}
+            </div>
+        @endif
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header"><img width="50px" height="50px" style="border-radius:50%"
                             src="{{ asset(str_replace('public', 'storage', $user->photo)) }}" alt="">
                         {{ $user->username }}
-                        {{-- <a style="float:right" href="" class="btn btn-info">Unfollow <i class="fa fa-undo"></i></a> --}}
-                        <a style="float:right;margin-right:0.2rem" href="{{route('users.follow',$user->id)}}" class="btn btn-success">Follow <i
-                                class="fa fa-users"></i></a>
+
+                        <a style="float:right;margin-right:0.2rem" href="{{ route('users.follow', $user->id) }}"
+                            class="btn btn-success">Follow <i class="fa fa-users"></i></a>
+
                         <a style="float:right;margin-right:0.2rem" href=""
                             class="btn btn-warning">{{ $user->posts->count() }} Posts</a>
                     </div>
                 </div>
                 <div class="card-body">
 
+                    <a style="float:right;margin-right:0.2rem" href="" class="btn btn-info">Followers
+                        {{ $user->followers->count() }} <i class="fa fa-users"></i></a>
+
+                    <a style="float:right;margin-right:0.2rem" href="" class="btn btn-warning">Following
+                        {{ $user->following->count() }} <i class="fa fa-users"></i></a>
 
                 </div>
             </div>
@@ -36,8 +51,8 @@
                                     <p class="card-text">Created at : {{ $post->created_at }} <i
                                             class="fa fa-calendar"></i>
                                     </p>
-                                    <span class="btn btn-danger">{{$post->likes_count}} likes</span><span style="margin-left:0.2rem"
-                                        class="btn btn-info">{{$post->comments->count()}}
+                                    <span class="btn btn-danger">{{ $post->likes->count() }} likes</span><span
+                                        style="margin-left:0.2rem" class="btn btn-info">{{ $post->comments->count() }}
                                         Comments</span>
                                 </div>
                             </div>

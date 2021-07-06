@@ -23,10 +23,10 @@ class Post extends Model
     }
 
     public function likes(){
-        return $this->hasMany(LikeDislike::class,'post_id')->sum('like');
+        return $this->hasMany(LikeDislike::class,'post_id');
     }
 
-    public function dislikes(){
-        return $this->hasMany(LikeDislike::class,'post_id')->sum('dislike');
-    }
+    // public function dislikes(){
+    //     return $this->hasMany(LikeDislike::class,'post_id')->sum('dislike');
+    // }
 }

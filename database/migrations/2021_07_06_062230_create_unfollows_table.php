@@ -16,6 +16,7 @@ class CreateUnfollowsTable extends Migration
         Schema::create('unfollows', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('auth_user_id');
             $table->timestamps();
         });
     }
