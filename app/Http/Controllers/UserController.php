@@ -57,7 +57,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = Auth::user()->id;
-        $follow_user = Follow::all();
+        $follow_user = Follow::where(['auth_user_id' => $user,'user_id' => $id])->get();
 
         return view('user.show', [
             'user' => User::findorFail($id),

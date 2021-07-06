@@ -18,12 +18,16 @@
                     <div class="card-header"><img width="50px" height="50px" style="border-radius:50%"
                             src="{{ asset(str_replace('public', 'storage', $user->photo)) }}" alt="">
                         {{ $user->username }}
+                        @foreach ($follow_user as $follow)
 
+                            @if ($follow->auth_user_id == Auth::user()->id)
                                 <a style="float:right;margin-right:0.2rem" href="{{ route('users.follow', $user->id) }}"
                                     class="btn btn-danger">Unfollow <i class="fas fa-user-minus"></i></a>
-                          
-                                <a style="float:right;margin-right:0.2rem" href="{{ route('users.follow', $user->id) }}"
-                                    class="btn btn-info">Follow <i class="fas fa-user-plus"></i></a>
+                            @endif
+
+                        @endforeach
+                        <a style="float:right;margin-right:0.2rem" href="{{ route('users.follow', $user->id) }}"
+                            class="btn btn-info">Follow <i class="fas fa-user-plus"></i></a>
 
                         <a style="float:right;margin-right:0.2rem" href=""
                             class="btn btn-warning">{{ $user->posts->count() }} Posts</a>
