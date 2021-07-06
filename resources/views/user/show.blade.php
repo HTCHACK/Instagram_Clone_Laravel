@@ -9,16 +9,16 @@
                     <div class="card-header"><img width="50px" height="50px" style="border-radius:50%"
                             src="{{ asset(str_replace('public', 'storage', $user->photo)) }}" alt="">
                         {{ $user->username }}
-                        <a style="float:right" href="" class="btn btn-info">Unfollow <i class="fa fa-undo"></i></a>
-                        <a style="float:right;margin-right:0.2rem" href="" class="btn btn-success">Follow <i
+                        {{-- <a style="float:right" href="" class="btn btn-info">Unfollow <i class="fa fa-undo"></i></a> --}}
+                        <a style="float:right;margin-right:0.2rem" href="{{route('users.follow',$user->id)}}" class="btn btn-success">Follow <i
                                 class="fa fa-users"></i></a>
                         <a style="float:right;margin-right:0.2rem" href=""
                             class="btn btn-warning">{{ $user->posts->count() }} Posts</a>
                     </div>
                 </div>
                 <div class="card-body">
-                    <p style="float:right" href="" class="btn btn-info">Following 122 </p>
-                    <p style="float:right;margin-right:0.2rem" href="" class="btn btn-success">Followers 125 </p>
+
+
                 </div>
             </div>
         </div>

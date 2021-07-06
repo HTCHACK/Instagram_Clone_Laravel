@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\User;
+use App\Follow;
+use App\Unfollow;
 
 
 class UserController extends Controller
@@ -50,11 +52,60 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        return view('user.show',['user' => $user]);
+        $followUser = User::find($id);
+        $followCount = Follow::where(['user_id' => $followUser->id])->count();
+        $unfollowCount = Unfollow::where(['user_id' => $followUser->id])->count();
+
+        return view('user.show',[
+            'user' => User::findorFail($id),
+            'followCount'=>$followCount,
+            'unfollowCount'=>$unfollowCount
+        ]);
     }
 
+    public function follow($id)
+    {
+        $user = Auth::user()->id;
+        $follow_user = Follow::where([
+            'user_id' => $user,
+        ])->first();
+
+        if(empty($follow_user->user_id))
+        {
+            $user_id = Auth::user()->id;
+            $like = new Follow;
+            $like->user_id = $user_id;
+            $like->save();
+
+            return redirect()->back();
+        }
+        else{
+            return redirect()->back();
+        }
+    }
+
+    public function unfollow($id)
+    {
+        $user = Auth::user()->id;
+        $unfollow_user = Unfollow::where([
+            'user_id' => $user,
+        ])->first();
+
+        if(empty($unfollow_user->user_id))
+        {
+            $user_id = Auth::user()->id;
+            $like = new Unfollow;
+            $like->user_id = $user_id;
+            $like->save();
+
+            return redirect()->back();
+        }
+        else{
+            return redirect()->back();
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      *

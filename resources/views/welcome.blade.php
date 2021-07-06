@@ -45,11 +45,10 @@
                                         </a>
 
                                         <!----Likes Count-->
-                                        <a href="{{ route('posts.show', $post->id) }}">
+                                        {{-- <a href="{{ route('likes.post', $post->id) }}" style="float:right">
                                             <span style="margin-left:0.2rem;margin-top:1rem"
-                                                class="btn btn-danger">{{ $post->likes_count }} <i
-                                                    class="fa fa-heart"></i></span>
-                                        </a>
+                                                class="btn btn-danger">{{ $likeCtr }} <i class="fa fa-heart"></i></span>
+                                        </a> --}}
                                         <!----Likes Count-->
 
                                         <a href="{{ route('posts.show', $post->id) }}">

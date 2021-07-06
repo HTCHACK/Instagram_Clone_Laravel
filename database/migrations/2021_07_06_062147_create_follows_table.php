@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLikeDislikesTable extends Migration
+class CreateFollowsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateLikeDislikesTable extends Migration
      */
     public function up()
     {
-        Schema::create('like_dislikes', function (Blueprint $table) {
+        Schema::create('follows', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
@@ -28,6 +27,6 @@ class CreateLikeDislikesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('like_dislikes');
+        Schema::dropIfExists('follows');
     }
 }

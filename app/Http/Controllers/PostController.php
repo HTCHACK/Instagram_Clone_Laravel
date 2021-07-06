@@ -42,11 +42,11 @@ class PostController extends Controller
     {
         Post::create([
             'photo' => $request->hasFile('photo') ? $request->file('photo')->storeAs('public/', Str::random(20) . '.' . $request->file('photo')->getClientOriginalExtension()) : null,
-            'descriptions'=>$request->descriptions,
-            'user_id'=>Auth::user()->id,
+            'descriptions' => $request->descriptions,
+            'user_id' => Auth::user()->id,
         ]);
 
-        return redirect()->route('home')->with('success','Post Successfully Created');
+        return redirect()->route('home')->with('success', 'Post Successfully Created');
     }
 
     /**
@@ -55,9 +55,15 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        return view('post.show',['post' => $post]);
+        $likePost = Post::find($id);
+        $likeCtr = LikeDislike::where(['post_id' => $likePost->id])->count();
+
+        return view('post.show', [
+            'post' => Post::findorFail($id),
+            'likeCtr'=>$likeCtr,
+        ]);
     }
 
     /**
@@ -68,7 +74,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        return view('post.edit',['post'=>Post::findorFail($id)]);
+        return view('post.edit', ['post' => Post::findorFail($id)]);
     }
 
     /**
@@ -81,12 +87,12 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         Post::findorFail($post->id)->update([
-                'photo' => $request->hasFile('photo') ? $request->file('photo')->storeAs('public/', Str::random(20) . '.' . $request->file('photo')->getClientOriginalExtension()) : $post->photo,
-                'descriptions'=>$request->descriptions,
-                'user_id'=>Auth::user()->id,
-            ]);
+            'photo' => $request->hasFile('photo') ? $request->file('photo')->storeAs('public/', Str::random(20) . '.' . $request->file('photo')->getClientOriginalExtension()) : $post->photo,
+            'descriptions' => $request->descriptions,
+            'user_id' => Auth::user()->id,
+        ]);
 
-            return redirect()->route('home')->with('postup','Post Successfully Updated');
+        return redirect()->route('home')->with('postup', 'Post Successfully Updated');
     }
 
     /**
@@ -99,23 +105,30 @@ class PostController extends Controller
     {
         Post::findorFail($post->id)->delete();
 
-        return redirect()->route('home')->with('delete','Post Successfully Deleted');
+        return redirect()->route('home')->with('delete', 'Post Successfully Deleted');
     }
 
-    public function save_likedislike(Request $request){
+    public function like($id)
+    {
+        $user = Auth::user()->id;
+        $like_user = LikeDislike::where([
+            'user_id' => $user,
+            'post_id' => $id
+        ])->first();
 
-        $data=new LikeDislike;
-        $data->post_id=$request->post;
-        $data->user_id=Auth::user();
-        if($request->type=='like'){
-            $data->like=1;
-        }else{
-            $data->dislike=1;
+        if(empty($like_user->user_id))
+        {
+            $user_id = Auth::user()->id;
+            $post_id = $id;
+            $like = new LikeDislike;
+            $like->user_id = $user_id;
+            $like->post_id = $post_id;
+            $like->save();
+
+            return redirect()->back();
         }
-        $data->save();
-        return response()->json([
-            'bool'=>true
-        ]);
+        else{
+            return redirect()->back();
+        }
     }
-
 }

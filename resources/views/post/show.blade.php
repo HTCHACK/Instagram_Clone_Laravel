@@ -25,7 +25,7 @@
                                 <li class="list-group-item"><img
                                         src="{{ asset(str_replace('public', 'storage', $post->user->photo)) }}"
                                         class="card-img-top" alt="..." style="height:40px;width:40px;border-radius:50%">
-                                        Post author : {{ $post->user->username }}</li>
+                                    Post author : {{ $post->user->username }}</li>
                             </a>
                         @endif
 
@@ -33,7 +33,14 @@
                     <img src="{{ asset(str_replace('public', 'storage', $post->photo)) }}" class="card-img-top" alt="..."
                         style="height:400px">
                     <h1 class="display-4"></h1>
-                    <p style="background:#fff;padding:2rem;margin-top:-0.5rem">{{ $post->descriptions }}</p>
+                    <p style="background:#fff;padding:2rem;margin-top:-0.5rem">{{ $post->descriptions }}
+
+                        <a href="{{ route('likes.post', $post->id) }}" style="float:right">
+                            <span style="margin-left:0.2rem;margin-top:1rem"
+                                class="btn btn-danger">{{ $likeCtr }} <i class="fa fa-heart"></i></span>
+                        </a>
+
+                    </p>
 
                 </div>
             </div>
