@@ -72,9 +72,6 @@
                     @endforeach
 
                 </div>
-                <div style="text-align:center;">
-                    {{$posts->links()}}
-                </div>
             </div>
             <div class="col-md-4" style="padding-left:2rem">
                 <ul class="list-group">

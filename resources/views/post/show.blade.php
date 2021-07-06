@@ -39,7 +39,9 @@
                             <span style="margin-left:0.2rem;margin-top:1rem"
                                 class="btn btn-danger">{{ $likeCtr }} <i class="fa fa-heart"></i></span>
                         </a>
-
+                            @foreach($post->likes as $key => $like)
+                                <p>liked by user_id {{$like->user_id}}</p>
+                            @endforeach
                     </p>
 
                 </div>

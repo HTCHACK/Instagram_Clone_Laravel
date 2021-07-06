@@ -2,11 +2,12 @@
 
 namespace App;
 
-use App\Post;
-use App\Comment;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
+use App\LikeDislike;
+use App\Comment;
+use App\Post;
 
 class User extends Authenticatable
 {
@@ -59,5 +60,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Follow::class,'auth_user_id');
     }
+
+    
 
 }

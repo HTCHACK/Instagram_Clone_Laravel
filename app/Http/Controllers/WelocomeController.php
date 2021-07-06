@@ -13,7 +13,7 @@ class WelocomeController extends Controller
     {
         return view('welcome',[
             'users'=>User::all(),
-            'posts'=>Post::orderby('created_at','desc')->paginate(1),
+            'posts'=>Post::orderby('created_at','desc')->get(),
         ]);
     }
 

@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\User;
+use App\LikeDislike;
 use App\Follow;
+use App\User;
+
 
 
 
@@ -55,7 +57,7 @@ class UserController extends Controller
     public function show($id)
     {
         return view('user.show', [
-            'user' => User::findorFail($id)
+            'user' => User::findorFail($id),
         ]);
     }
 

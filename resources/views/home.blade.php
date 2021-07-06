@@ -25,10 +25,10 @@
                     <div class="card-header"><img width="50px" height="50px" style="border-radius:50%"
                             src="{{ asset(str_replace('public', 'storage', Auth::user()->photo)) }}" alt="">
                         {{ Auth::user()->username }}
-                        <a style="float:right" href="{{ route('posts.create') }}" class="btn btn-info">Post <i
+                        <a style="float:right" href="{{ route('posts.create') }}" class="btn btn-info"><i
                                 class="fa fa-plus"></i></a>
                         <a style="float:right;margin-right:0.2rem" href="{{ route('users.edit', Auth::user()->id) }}"
-                            class="btn btn-success">Edit <i class="fa fa-user"></i></a>
+                            class="btn btn-danger"><i class="fa fa-cog"></i></a>
                     </div>
 
                     <div class="card-body">
