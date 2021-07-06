@@ -127,7 +127,9 @@ class PostController extends Controller
 
             return redirect()->back();
         }
-        else{
+        elseif(!empty($like_user->user_id))
+        {
+            LikeDislike::where(['user_id' => $user,'post_id' => $id])->delete();
             return redirect()->back();
         }
     }

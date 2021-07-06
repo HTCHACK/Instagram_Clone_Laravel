@@ -61,6 +61,10 @@ class User extends Authenticatable
         return $this->hasMany(Follow::class,'auth_user_id');
     }
 
-    
+    public function likes() {
+
+        return $this->belongsTo(LikeDislike::class,'auth_user_id');
+    }
+
 
 }

@@ -2,9 +2,9 @@
 @section('content')
 
     <div class="container">
-        @if (session('success'))
+        @if (session('comment'))
             <div class="alert alert-success" role="alert">
-                {{ session('success') }}
+                {{ session('comment') }}
             </div>
         @endif
         <div class="row">
@@ -39,9 +39,7 @@
                             <span style="margin-left:0.2rem;margin-top:1rem"
                                 class="btn btn-danger">{{ $likeCtr }} <i class="fa fa-heart"></i></span>
                         </a>
-                            @foreach($post->likes as $key => $like)
-                                <p>liked by user_id {{$like->user_id}}</p>
-                            @endforeach
+
                     </p>
 
                 </div>
@@ -72,14 +70,15 @@
                         @endforeach
                         <li class="list-group-item">
                             <form method="post" action="{{ route('comments.store', $post->id) }}">
-                                <div class="form-group">
+                                <div class="input-group mb-3">
                                     @csrf
                                     <input type="hidden" name="user_id">
                                     <input type="hidden" name="post_id" value="{{ $post->id }}">
-                                    <label for="exampleInputEmail1">Add Comment</label>
-                                    <input type="text" class="form-control" name="description" placeholder="Comment..">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                    <input type="text" class="form-control" name="description" placeholder="Add comment" >
+                                    <div class="input-group-append">
+                                      <button class="btn btn-outline-info" type="submit"><i class="fas fa-paper-plane"></i></button>
+                                    </div>
+                                  </div>
                             </form>
                         </li>
                     </ul>

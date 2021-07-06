@@ -19,8 +19,11 @@
                             src="{{ asset(str_replace('public', 'storage', $user->photo)) }}" alt="">
                         {{ $user->username }}
 
-                        <a style="float:right;margin-right:0.2rem" href="{{ route('users.follow', $user->id) }}"
-                            class="btn btn-success">Follow <i class="fa fa-users"></i></a>
+                                <a style="float:right;margin-right:0.2rem" href="{{ route('users.follow', $user->id) }}"
+                                    class="btn btn-danger">Unfollow <i class="fas fa-user-minus"></i></a>
+                          
+                                <a style="float:right;margin-right:0.2rem" href="{{ route('users.follow', $user->id) }}"
+                                    class="btn btn-info">Follow <i class="fas fa-user-plus"></i></a>
 
                         <a style="float:right;margin-right:0.2rem" href=""
                             class="btn btn-warning">{{ $user->posts->count() }} Posts</a>
@@ -51,12 +54,12 @@
                                     <p class="card-text">Created at : {{ $post->created_at }} <i
                                             class="fa fa-calendar"></i>
                                     </p>
-                                    <a href="{{ route('likes.post', $post->id) }}" >
+                                    <a href="{{ route('likes.post', $post->id) }}">
                                         <span style="margin-left:0.2rem;"
-                                            class="btn btn-danger">{{ $post->likes->count() }} <i class="fa fa-heart"></i></span>
+                                            class="btn btn-danger">{{ $post->likes->count() }} <i
+                                                class="fa fa-heart"></i></span>
                                     </a>
-                                    <span
-                                        style="margin-left:0.2rem" class="btn btn-info">{{ $post->comments->count() }}
+                                    <span style="margin-left:0.2rem" class="btn btn-info">{{ $post->comments->count() }}
                                         Comments</span>
                                 </div>
                             </div>

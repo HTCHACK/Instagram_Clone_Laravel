@@ -56,8 +56,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        $user = Auth::user()->id;
+        $follow_user = Follow::all();
+
         return view('user.show', [
             'user' => User::findorFail($id),
+            'follow_user'=>$follow_user
         ]);
     }
 
@@ -75,8 +79,11 @@ class UserController extends Controller
             $follow->save();
 
             return redirect()->back()->with('followers','You have successfully follow this user');
-        } else {
-            return redirect()->back()->with('follow','You have already follow this user, you can not follow twice');
+        }
+        elseif(!empty($follow_user->auth_user_id))
+        {
+            Follow::where(['auth_user_id' => $user,'user_id' => $id])->delete();
+            return redirect()->back()->with('follow','You have succesfully unfollow this user');
         }
     }
 

@@ -42,7 +42,7 @@ class CommentController extends Controller
             'post_id'=>$request->post_id,
         ]);
 
-        return redirect()->back()->with('success','Comment Created Successfully');
+        return redirect()->back()->with('comment','Comment Created Successfully');
     }
 
     /**
