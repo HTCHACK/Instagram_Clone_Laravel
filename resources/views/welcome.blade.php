@@ -70,6 +70,10 @@
                             </div>
                         </div>
                     @endforeach
+
+                </div>
+                <div style="text-align:center;">
+                    {{$posts->links()}}
                 </div>
             </div>
             <div class="col-md-4" style="padding-left:2rem">
@@ -98,8 +102,4 @@
 
 
 @endsection
-@section('js')
 
-   
-
-@endsection

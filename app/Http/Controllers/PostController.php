@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Post;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\LikeDislike;
+use App\User;
+use App\Post;
 
 class PostController extends Controller
 {

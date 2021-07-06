@@ -9,9 +9,4 @@ class Follow extends Model
     protected $table = 'follows';
     protected $guarded = [''];
 
-    public function user()
-    {
-        
-    }
-
 }

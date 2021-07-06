@@ -51,7 +51,11 @@
                                     <p class="card-text">Created at : {{ $post->created_at }} <i
                                             class="fa fa-calendar"></i>
                                     </p>
-                                    <span class="btn btn-danger">{{ $post->likes->count() }} likes</span><span
+                                    <a href="{{ route('likes.post', $post->id) }}" >
+                                        <span style="margin-left:0.2rem;"
+                                            class="btn btn-danger">{{ $post->likes->count() }} <i class="fa fa-heart"></i></span>
+                                    </a>
+                                    <span
                                         style="margin-left:0.2rem" class="btn btn-info">{{ $post->comments->count() }}
                                         Comments</span>
                                 </div>

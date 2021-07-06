@@ -17,10 +17,7 @@
                         <input type="text" class="form-control" name="username" value="{{ Auth::user()->username }}">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control"  value="bcrypt({{Auth::user()->password}})">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="password" placeholder="New Password">
+                        <input type="text" class="form-control" name="password" placeholder="Update Password">
                     </div>
                     <div class="form-group">
                         <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}">

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\User;
 use App\Follow;
-use App\Unfollow;
+
 
 
 class UserController extends Controller
@@ -104,7 +104,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'username' => $request->username,
-            'password' => bcrypt($request->password),
+            'password' => Hash::make($request->password),
             'photo' => $request->hasFile('photo') ? $request->file('photo')->storeAs('public/', Str::random(20) . '.' . $request->file('photo')->getClientOriginalExtension()) : $user->photo
         ]);
 
